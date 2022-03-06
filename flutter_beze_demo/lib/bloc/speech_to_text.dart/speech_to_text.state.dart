@@ -38,7 +38,6 @@ class SpeechToTextState extends Equatable {
         hasSpeech,
         listenFor,
         pauseFor,
-        // logEvents,
         level,
         minSoundLevel,
         maxSoundLevel,

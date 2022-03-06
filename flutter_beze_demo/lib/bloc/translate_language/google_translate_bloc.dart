@@ -1,7 +1,6 @@
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_event.dart';
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_state.dart';
-
-import 'package:flutter_beze_demo/constants/language_data_constants.dart';
+import 'package:flutter_beze_demo/bloc/translate_language/google_translate_event.dart';
+import 'package:flutter_beze_demo/bloc/translate_language/google_translate_state.dart';
+import 'package:flutter_beze_demo/constants/language.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stream_transform/stream_transform.dart';
@@ -16,25 +15,24 @@ EventTransformer<E> debounce<E>(Duration duration) {
 
 const debounceDuration = Duration(milliseconds: 300);
 
-class GoogleTranslateBloc
-    extends Bloc<GoogleTranslateEvent, GoogleTranslateState> {
+class TranslateBloc extends Bloc<TranslateEvent, TranslateState> {
   final GoogleTranslator translator = GoogleTranslator();
 
-  GoogleTranslateBloc() : super(const GoogleTranslateState()) {
-    on<GoogleTranslateInitEvent>(_onGoogleTransInitEvent);
-    on<GoogleTranslateTypingEvent>(_onGoogleTranslateTypingEvent,
+  TranslateBloc() : super(const TranslateState()) {
+    on<TranslateInitEvent>(_onGoogleTransInitEvent);
+    on<TranslateTypingEvent>(_onGoogleTranslateTypingEvent,
         transformer: debounce(debounceDuration));
-    on<GoogleTranslateChangedFromLanguageEvent>(
+    on<TranslateChangedFromLanguageEvent>(
         _onGoogleTranslateChangedFromLanguageEvent);
-    on<GoogleTranslateChangedToLanguageEvent>(
+    on<TranslateChangedToLanguageEvent>(
         _onGoogleTranslateChangedToLanguageEvent);
-    on<GoogleTranslateSwapLanguage>(_onGoogleTranslateSwapLanguage);
-    on<GoogleTranslateClearTypingEvent>(_onGoogleTranslateClearTypingEvent);
-    on<GoogleTranslateResultEvent>(_onGoogleTranslateResultEvent);
+    on<TranslateSwapLanguage>(_onGoogleTranslateSwapLanguage);
+    on<TranslateClearTypingEvent>(_onGoogleTranslateClearTypingEvent);
+    on<TranslateResultEvent>(_onGoogleTranslateResultEvent);
   }
 
   void _onGoogleTransInitEvent(
-      GoogleTranslateInitEvent event, Emitter<GoogleTranslateState> emit) {
+      TranslateInitEvent event, Emitter<TranslateState> emit) {
     emit(state.copyWith(
       fromLanguage: 'Automatic',
       toLanguage: 'English',
@@ -44,7 +42,7 @@ class GoogleTranslateBloc
   }
 
   void _onGoogleTranslateTypingEvent(
-      GoogleTranslateTypingEvent event, Emitter<GoogleTranslateState> emit) {
+      TranslateTypingEvent event, Emitter<TranslateState> emit) {
     emit(state.copyWith(inputText: event.inputText));
     if (event.inputText != '' && event.inputText.isNotEmpty) {
       translator
@@ -53,15 +51,14 @@ class GoogleTranslateBloc
                   state.toLanguage),
               from: GoogleTranslateConstants.mapLanguageCodeToLanguageName(
                   state.fromLanguage))
-          .then((value) =>
-              {add(GoogleTranslateResultEvent(newResult: value.text))});
+          .then((value) => {add(TranslateResultEvent(newResult: value.text))});
     } else {
-      add(const GoogleTranslateResultEvent(newResult: ''));
+      add(const TranslateResultEvent(newResult: ''));
     }
   }
 
-  void _onGoogleTranslateClearTypingEvent(GoogleTranslateClearTypingEvent event,
-      Emitter<GoogleTranslateState> emit) {
+  void _onGoogleTranslateClearTypingEvent(
+      TranslateClearTypingEvent event, Emitter<TranslateState> emit) {
     emit(state.copyWith(
       inputText: '',
       resultText: '',
@@ -69,19 +66,17 @@ class GoogleTranslateBloc
   }
 
   void _onGoogleTranslateChangedFromLanguageEvent(
-      GoogleTranslateChangedFromLanguageEvent event,
-      Emitter<GoogleTranslateState> emit) {
+      TranslateChangedFromLanguageEvent event, Emitter<TranslateState> emit) {
     emit(state.copyWith(fromLanguage: event.fromLanguage));
   }
 
   void _onGoogleTranslateChangedToLanguageEvent(
-      GoogleTranslateChangedToLanguageEvent event,
-      Emitter<GoogleTranslateState> emit) {
+      TranslateChangedToLanguageEvent event, Emitter<TranslateState> emit) {
     emit(state.copyWith(toLanguage: event.toLanguage));
   }
 
   void _onGoogleTranslateSwapLanguage(
-      GoogleTranslateSwapLanguage event, Emitter<GoogleTranslateState> emit) {
+      TranslateSwapLanguage event, Emitter<TranslateState> emit) {
     emit(state.copyWith(
       fromLanguage: event.currentToLanguage,
       toLanguage: event.currentFromLanguage,
@@ -89,7 +84,7 @@ class GoogleTranslateBloc
   }
 
   void _onGoogleTranslateResultEvent(
-      GoogleTranslateResultEvent event, Emitter<GoogleTranslateState> emit) {
+      TranslateResultEvent event, Emitter<TranslateState> emit) {
     emit(state.copyWith(resultText: event.newResult));
   }
 }

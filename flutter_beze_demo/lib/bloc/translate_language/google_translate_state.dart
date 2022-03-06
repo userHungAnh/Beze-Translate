@@ -1,12 +1,12 @@
 import 'package:equatable/equatable.dart';
 
-class GoogleTranslateState extends Equatable {
+class TranslateState extends Equatable {
   final String inputText;
   final String resultText;
 
   final String toLanguage;
   final String fromLanguage;
-  const GoogleTranslateState({
+  const TranslateState({
     this.inputText = '',
     this.resultText = '',
     this.toLanguage = '',
@@ -15,13 +15,13 @@ class GoogleTranslateState extends Equatable {
   @override
   List<Object> get props => [inputText, resultText, toLanguage, fromLanguage];
 
-  GoogleTranslateState copyWith({
+  TranslateState copyWith({
     String? inputText,
     String? resultText,
     String? toLanguage,
     String? fromLanguage,
   }) {
-    return GoogleTranslateState(
+    return TranslateState(
       inputText: inputText ?? this.inputText,
       resultText: resultText ?? this.resultText,
       toLanguage: toLanguage ?? this.toLanguage,

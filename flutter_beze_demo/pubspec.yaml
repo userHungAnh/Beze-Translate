@@ -30,9 +30,10 @@ dependencies:
   flutter:
     sdk: flutter
   flag: ^6.0.0
+  http: ^0.13.4
   flutter_tts: ^3.3.3
   speech_to_text: ^5.4.2
-  
+  auto_size_text: ^3.0.0
   avatar_glow: ^2.0.2
   translator: ^0.1.7
   equatable: ^2.0.3

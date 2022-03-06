@@ -1,58 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_bloc.dart';
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_event.dart';
+import 'package:flutter_beze_demo/bloc/page_controller/page_controller_bloc.dart';
+import 'package:flutter_beze_demo/bloc/page_controller/page_controller_event.dart';
+import 'package:flutter_beze_demo/bloc/search_language/search_bloc.dart';
+import 'package:flutter_beze_demo/bloc/search_language/search_event.dart';
 
 import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text_bloc.dart';
 import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text_event.dart';
 import 'package:flutter_beze_demo/bloc/text_to_speech/text_to_speech_bloc.dart';
 import 'package:flutter_beze_demo/bloc/text_to_speech/text_to_speech_event.dart';
-import 'package:flutter_beze_demo/screen/page_view/list_page/account_page.dart';
-import 'package:flutter_beze_demo/screen/page_view/list_page/home_page.dart';
-import 'package:flutter_beze_demo/screen/page_view/list_page/setting/setting_page.dart';
+import 'package:flutter_beze_demo/bloc/theme/theme_bloc.dart';
+import 'package:flutter_beze_demo/bloc/theme/theme_event.dart';
+import 'package:flutter_beze_demo/bloc/translate_language/google_translate_bloc.dart';
+import 'package:flutter_beze_demo/bloc/translate_language/google_translate_event.dart';
+import 'package:flutter_beze_demo/request_api/api2.dart';
 
-import 'package:flutter_beze_demo/screen/views/navigator_bottom.dart';
+import 'package:flutter_beze_demo/screen/main_page_view/account_page.dart';
+import 'package:flutter_beze_demo/screen/main_page_view/home_page.dart';
+import 'package:flutter_beze_demo/screen/main_page_view/setting_page.dart';
+
+import 'package:flutter_beze_demo/widget/navigator_bottom.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  _HomeViewState createState() => _HomeViewState();
+  _HomeState createState() => _HomeState();
 }
 
-class _HomeViewState extends State<HomeView> {
-  int currentIndex = 0;
+class _HomeState extends State<Home> {
   final PageController _pageController = PageController(
     initialPage: 0,
     keepPage: true,
   );
-
-  void _onPageViewChanged(int index) {
-    setState(() {
-      currentIndex = index;
-    });
-  }
-
-  void _onItemTapped(int index) {
-    setState(() {
-      currentIndex = index;
-      _pageController.animateToPage(index,
-          duration: const Duration(milliseconds: 500), curve: Curves.ease);
-    });
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
   @override
   void initState() {
+    fetchApi2();
+    context.read<ThemeBloc>().add(ThemeInitEvent());
     context.read<SpeechToTextBloc>().add(SpeechToTextInitEvent());
-    context.read<GoogleTranslateBloc>().add((GoogleTranslateInitEvent()));
+    context.read<TranslateBloc>().add((TranslateInitEvent()));
     context.read<TextToSpeechBLoc>().add(TextToSpeechInitEvent());
+    context.read<PageControllerBloc>().add(PageControllerInitialEvent());
+    context.read<SearchBloc>().add(SearchInitEvent());
     // TODO: implement initState
     super.initState();
   }
@@ -64,14 +54,20 @@ class _HomeViewState extends State<HomeView> {
     return SafeArea(
       child: Scaffold(
           bottomNavigationBar: NavigatorBottom(
-            currentIndex: currentIndex,
+            currentIndex:
+                context.watch<PageControllerBloc>().state.currentIndex,
             onTap: (index) {
-              _onItemTapped(index);
+              context.read<PageControllerBloc>().add(PageControllerOntapEvent(
+                  newPageIndex: index, pageController: _pageController));
             },
           ),
           body: PageView(
             onPageChanged: (index) {
-              _onPageViewChanged(index);
+              context
+                  .read<PageControllerBloc>()
+                  .add(PageControllerChangePageEvent(
+                    newPageIndex: index,
+                  ));
             },
             controller: _pageController,
             children: [

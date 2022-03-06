@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_bloc.dart';
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_event.dart';
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_state.dart';
+
 import 'package:flutter_beze_demo/bloc/search_language/search_bloc.dart';
 import 'package:flutter_beze_demo/bloc/search_language/search_event.dart';
 import 'package:flutter_beze_demo/bloc/search_language/search_state.dart';
-import 'package:flutter_beze_demo/constants/language_data_constants.dart';
+import 'package:flutter_beze_demo/bloc/translate_language/google_translate_bloc.dart';
+import 'package:flutter_beze_demo/bloc/translate_language/google_translate_event.dart';
+
 import 'package:flutter_beze_demo/widget/search.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,7 +20,7 @@ class SelectToLanguageUi extends StatelessWidget {
             context: context,
             builder: (BuildContext context) => SelectToLanguage());
       },
-      title: Text(context.watch<GoogleTranslateBloc>().state.toLanguage),
+      title: Text(context.watch<TranslateBloc>().state.toLanguage),
       trailing: Icon(Icons.arrow_drop_down),
     );
   }
@@ -63,8 +63,7 @@ class _SelectToLanguageState extends State<SelectToLanguage> {
             children: [
               Text('Current Language'),
               ListTile(
-                title:
-                    Text(context.watch<GoogleTranslateBloc>().state.toLanguage),
+                title: Text(context.watch<TranslateBloc>().state.toLanguage),
                 selected: true,
                 trailing: Icon(Icons.check),
               ),
@@ -77,15 +76,11 @@ class _SelectToLanguageState extends State<SelectToLanguage> {
                     return ListTile(
                       title: Text(data),
                       onTap: () {
-                        context.read<GoogleTranslateBloc>().add(
-                            GoogleTranslateChangedToLanguageEvent(
-                                toLanguage: data));
-                        context.read<GoogleTranslateBloc>().add(
-                            GoogleTranslateTypingEvent(
-                                inputText: context
-                                    .read<GoogleTranslateBloc>()
-                                    .state
-                                    .inputText));
+                        context.read<TranslateBloc>().add(
+                            TranslateChangedToLanguageEvent(toLanguage: data));
+                        context.read<TranslateBloc>().add(TranslateTypingEvent(
+                            inputText:
+                                context.read<TranslateBloc>().state.inputText));
                         context.read<SearchBloc>().add(SearchClearEvent());
                         Navigator.of(context).pop();
                       },

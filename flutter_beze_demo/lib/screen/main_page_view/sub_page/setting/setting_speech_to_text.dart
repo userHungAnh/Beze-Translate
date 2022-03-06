@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text_bloc.dart';
 import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text_event.dart';
-import 'package:flutter_beze_demo/widget/back_setting_button.dart';
+import 'package:flutter_beze_demo/custom/type_text/layout_text.dart';
+import 'package:flutter_beze_demo/button/back_setting_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingSpeechToText extends StatefulWidget {
@@ -23,11 +24,15 @@ class _SettingSpeechToTextState extends State<SettingSpeechToText> {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         leadingWidth: 80,
-        leading: BackSettingButton(),
+        leading: BackSettingButton(
+          text: 'Setting',
+        ),
       ),
       body: Container(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            SettingText(text: 'set time'),
             Card(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0)),

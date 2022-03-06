@@ -12,25 +12,18 @@ class TextToSpeechButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return BlocBuilder<TextToSpeechBLoc, TextToSpeechState>(
-    //   builder: (context, state) {
     return Row(children: [
       InkWell(
         onTap: () {
-          // context.read<TextToSpeechBLoc>().state.status !=
-          //         TextToSpeechStatus.playing
           context.read<TextToSpeechBLoc>().add(TextToSpeechPlayEvent(
               textToSpeech: text, languageSpeech: language));
-          // : context.read<TextToSpeechBLoc>().add(TextToSpeechStopEvent());
         },
-        child:
-            // context.read<TextToSpeechBLoc>().state.status ==
-            //         TextToSpeechStatus.playing
-
-            const Center(child: Icon(Icons.volume_up)),
+        child: const Center(
+            child: Icon(
+          Icons.volume_up,
+          color: Colors.lightBlue,
+        )),
       ),
     ]);
   }
-  //   );
-  // }
 }

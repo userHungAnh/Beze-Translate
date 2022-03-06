@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BackSettingButton extends StatelessWidget {
-  const BackSettingButton({Key? key}) : super(key: key);
-
+  const BackSettingButton({Key? key, required this.text}) : super(key: key);
+  final String text;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -17,7 +17,7 @@ class BackSettingButton extends StatelessWidget {
             color: Colors.lightBlue,
           ),
           Text(
-            'Settings',
+            text,
             style: TextStyle(color: Colors.blue),
           )
         ],

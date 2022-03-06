@@ -1,8 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text.state.dart';
 import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text_event.dart';
-import 'package:flutter_beze_demo/constants/language_data_constants.dart';
+import 'package:flutter_beze_demo/constants/language.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:speech_to_text/speech_to_text.dart' as stt;
@@ -43,7 +41,6 @@ class SpeechToTextBloc extends Bloc<SpeechToTextEvent, SpeechToTextState> {
     bool availabe = await _speechToText.initialize(
       onStatus: (val) {
         print('onStatus: $val');
-
         if (val == 'done') {
           add(SpeechToTextStopListenEvent());
         }

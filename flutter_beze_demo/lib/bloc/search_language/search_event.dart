@@ -10,8 +10,17 @@ class SearchInitEvent extends SearchEvent {}
 
 class SearchTypingAndSearchEvent extends SearchEvent {
   final String searchText;
+
   SearchTypingAndSearchEvent({
     required this.searchText,
+  });
+}
+
+class CreateListItemsEvent extends SearchEvent {
+  final List<String> items;
+
+  CreateListItemsEvent({
+    required this.items,
   });
 }
 

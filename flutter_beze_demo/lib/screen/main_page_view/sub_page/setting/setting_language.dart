@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_bloc.dart';
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_event.dart';
+import 'package:flutter_beze_demo/bloc/theme/theme_bloc.dart';
+import 'package:flutter_beze_demo/bloc/translate_language/google_translate_bloc.dart';
+import 'package:flutter_beze_demo/bloc/translate_language/google_translate_event.dart';
 import 'package:flutter_beze_demo/bloc/search_language/search_bloc.dart';
 import 'package:flutter_beze_demo/bloc/search_language/search_event.dart';
 import 'package:flutter_beze_demo/bloc/search_language/search_state.dart';
+import 'package:flutter_beze_demo/custom/type_text/layout_text.dart';
+import 'package:flutter_beze_demo/custom/type_text/regular_text.dart';
 
-import 'package:flutter_beze_demo/widget/back_setting_button.dart';
+import 'package:flutter_beze_demo/button/back_setting_button.dart';
 import 'package:flutter_beze_demo/widget/search.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,12 +36,15 @@ class _SettingLanguageState extends State<SettingLanguage> {
               backgroundColor: Colors.transparent,
               elevation: 0.0,
               leadingWidth: 80,
-              leading: BackSettingButton(),
+              leading: BackSettingButton(
+                text: 'Setting',
+              ),
             ),
             body: Container(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SettingText(text: 'Search'),
                   Search(
                     controller: _controller,
                     onChanged: (value) {
@@ -55,46 +61,36 @@ class _SettingLanguageState extends State<SettingLanguage> {
                     },
                     hide: state.hasSearch,
                   ),
-                  Text(
-                    'Current Language'.toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
+                  SettingText(text: 'Current Language'),
                   Card(
                     child: ListTile(
-                      title: Text(context
-                          .watch<GoogleTranslateBloc>()
-                          .state
-                          .fromLanguage),
+                      title: Text(
+                          context.watch<TranslateBloc>().state.fromLanguage),
                       selected: true,
                       trailing: Icon(Icons.check),
                     ),
                   ),
-                  Text(
-                    'List Language'.toUpperCase(),
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
-                  ),
+                  SettingText(text: 'List Language'),
                   Expanded(
-                    child: Container(
-                      color: Colors.white,
+                    child: Card(
+                      color: context.watch<ThemeBloc>().state.widgetColor,
                       child: ListView(
                         padding: EdgeInsets.all(12.0),
                         children: state.listResults.map((data) {
                           return Column(
                             children: [
                               ListTile(
-                                  title: Text(data),
+                                  title: RegularText(
+                                    text: data,
+                                  ),
                                   onTap: () {
-                                    context.read<GoogleTranslateBloc>().add(
-                                        GoogleTranslateChangedFromLanguageEvent(
+                                    context.read<TranslateBloc>().add(
+                                        TranslateChangedFromLanguageEvent(
                                             fromLanguage: data));
-                                    _controller.text = '';
+                                    _controller.clear();
                                     context
-                                        .read<GoogleTranslateBloc>()
-                                        .add(GoogleTranslateClearTypingEvent());
+                                        .read<TranslateBloc>()
+                                        .add(TranslateClearTypingEvent());
                                   }),
                             ],
                           );

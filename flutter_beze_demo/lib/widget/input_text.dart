@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_bloc.dart';
-import 'package:flutter_beze_demo/bloc/google_translate_language/google_translate_event.dart';
 
 import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text_bloc.dart';
 import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text_event.dart';
+import 'package:flutter_beze_demo/bloc/translate_language/google_translate_bloc.dart';
+import 'package:flutter_beze_demo/bloc/translate_language/google_translate_event.dart';
 
-import 'package:flutter_beze_demo/widget/text_to_speech_build.dart';
+import 'package:flutter_beze_demo/button/text_to_speech_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InputText extends StatefulWidget {
@@ -21,7 +21,7 @@ class _InputTextState extends State<InputText> {
   @override
   Widget build(BuildContext context) {
     TextEditingController controller = TextEditingController();
-    context.read<GoogleTranslateBloc>().add(GoogleTranslateTypingEvent(
+    context.read<TranslateBloc>().add(TranslateTypingEvent(
         inputText: controller.text =
             context.watch<SpeechToTextBloc>().state.speechToText));
 
@@ -38,15 +38,23 @@ class _InputTextState extends State<InputText> {
               border: InputBorder.none),
           onChanged: (value) {
             context
-                .read<GoogleTranslateBloc>()
-                .add(GoogleTranslateTypingEvent(inputText: value));
+                .read<TranslateBloc>()
+                .add(TranslateTypingEvent(inputText: value));
           },
         ),
-        TextToSpeechButton(
-          text: context.read<GoogleTranslateBloc>().state.inputText,
-          language: context.read<GoogleTranslateBloc>().state.fromLanguage,
-        )
+        TextToSpeechInput()
       ],
+    );
+  }
+}
+
+class TextToSpeechInput extends StatelessWidget {
+  const TextToSpeechInput({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return TextToSpeechButton(
+      text: context.read<TranslateBloc>().state.inputText,
+      language: context.watch<TranslateBloc>().state.fromLanguage,
     );
   }
 }
@@ -56,13 +64,11 @@ class SuffixIconShow extends StatelessWidget {
   final TextEditingController controller;
   @override
   Widget build(BuildContext context) {
-    return (context.watch<GoogleTranslateBloc>().state.inputText != '')
+    return (context.watch<TranslateBloc>().state.inputText != '')
         ? IconButton(
             onPressed: () {
-              controller.clear();
-              context
-                  .read<GoogleTranslateBloc>()
-                  .add(GoogleTranslateClearTypingEvent());
+              controller.text = '';
+              context.read<TranslateBloc>().add(TranslateClearTypingEvent());
               context.read<SpeechToTextBloc>().add(SpeechToTextCleanEvent());
             },
             icon: Icon(

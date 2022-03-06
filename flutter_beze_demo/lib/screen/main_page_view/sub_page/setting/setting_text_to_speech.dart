@@ -1,6 +1,8 @@
 import 'package:flutter_beze_demo/bloc/text_to_speech/text_to_speech_bloc.dart';
 import 'package:flutter_beze_demo/bloc/text_to_speech/text_to_speech_event.dart';
-import 'package:flutter_beze_demo/widget/back_setting_button.dart';
+import 'package:flutter_beze_demo/bloc/theme/theme_bloc.dart';
+import 'package:flutter_beze_demo/custom/type_text/layout_text.dart';
+import 'package:flutter_beze_demo/button/back_setting_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 
@@ -18,20 +20,14 @@ class SettingTextToSpeech extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         leadingWidth: 80,
-        leading: BackSettingButton(),
+        leading: BackSettingButton(
+          text: 'Setting',
+        ),
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(
-          'Volume'.toUpperCase(),
-          style: TextStyle(
-            color: Colors.grey,
-          ),
-        ),
-        ListTile(
-          shape: Border(
-              top: BorderSide(color: Color.fromARGB(255, 219, 218, 218)),
-              bottom: BorderSide(color: Color.fromARGB(255, 219, 218, 218))),
-          title: Slider(
+        SettingText(text: 'volume'),
+        Card(
+          child: Slider(
               inactiveColor: Colors.grey,
               value: context.watch<TextToSpeechBLoc>().state.volume,
               onChanged: (newVolume) {
@@ -45,17 +41,9 @@ class SettingTextToSpeech extends StatelessWidget {
               label:
                   "Volume: ${context.read<TextToSpeechBLoc>().state.volume}"),
         ),
-        Text(
-          'pitch'.toUpperCase(),
-          style: TextStyle(
-            color: Colors.grey,
-          ),
-        ),
-        ListTile(
-          shape: Border(
-              top: BorderSide(color: Color.fromARGB(255, 219, 218, 218)),
-              bottom: BorderSide(color: Color.fromARGB(255, 219, 218, 218))),
-          title: Slider(
+        SettingText(text: 'pitch'),
+        Card(
+          child: Slider(
             inactiveColor: Colors.grey,
             value: context.watch<TextToSpeechBLoc>().state.pitch,
             onChanged: (newPitch) {
@@ -69,17 +57,9 @@ class SettingTextToSpeech extends StatelessWidget {
             label: "Pitch: ${context.read<TextToSpeechBLoc>().state.pitch}",
           ),
         ),
-        Text(
-          'rate'.toUpperCase(),
-          style: TextStyle(
-            color: Colors.grey,
-          ),
-        ),
-        ListTile(
-          shape: Border(
-              top: BorderSide(color: Color.fromARGB(255, 219, 218, 218)),
-              bottom: BorderSide(color: Color.fromARGB(255, 219, 218, 218))),
-          title: Slider(
+        SettingText(text: 'rate'),
+        Card(
+          child: Slider(
             inactiveColor: Colors.grey,
             value: context.watch<TextToSpeechBLoc>().state.rate,
             onChanged: (newRate) {

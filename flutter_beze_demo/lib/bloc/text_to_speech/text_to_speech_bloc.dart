@@ -57,7 +57,6 @@ class TextToSpeechBLoc extends Bloc<TextToSpeechEvent, TextToSpeechState> {
     await flutterTts.setVolume(state.volume);
     await flutterTts.setPitch(state.pitch);
     await flutterTts.setSpeechRate(state.rate);
-    print(await flutterTts.getLanguages);
     await flutterTts.setIosAudioCategory(IosTextToSpeechAudioCategory.playback,
         [IosTextToSpeechAudioCategoryOptions.defaultToSpeaker]);
     if (event.textToSpeech != '') {
