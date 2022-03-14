@@ -68,3 +68,11 @@ class CircleImageButton extends StatelessWidget {
     );
   }
 }
+
+const kColorThin = Colors.red;
+
+class PrimaryFont {
+  static TextStyle thin(double size) {
+    return TextStyle(fontSize: size, fontWeight: FontWeight.bold);
+  }
+}

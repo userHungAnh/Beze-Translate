@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text_bloc.dart';
 import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text_event.dart';
 import 'package:flutter_beze_demo/custom/type_text/layout_text.dart';
-import 'package:flutter_beze_demo/button/back_setting_button.dart';
+import 'package:flutter_beze_demo/ui/widget/back_screen_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingSpeechToText extends StatefulWidget {

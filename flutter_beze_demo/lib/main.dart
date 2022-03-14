@@ -7,9 +7,9 @@ import 'package:flutter_beze_demo/bloc/text_to_speech/text_to_speech_bloc.dart';
 import 'package:flutter_beze_demo/bloc/theme/theme_bloc.dart';
 
 import 'package:flutter_beze_demo/bloc/theme/theme_state.dart';
-import 'package:flutter_beze_demo/bloc_obsever.dart';
+import 'package:flutter_beze_demo/bloc/bloc_obsever.dart';
 
-import 'package:flutter_beze_demo/screen/home.dart';
+import 'package:flutter_beze_demo/home.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/page_controller/page_controller_bloc.dart';
@@ -22,9 +22,9 @@ void main() {
       BlocProvider<TextToSpeechBLoc>(create: (context) => TextToSpeechBLoc()),
       BlocProvider<SearchBloc>(create: (context) => SearchBloc()),
       BlocProvider<ThemeBloc>(create: (context) => ThemeBloc()),
-      BlocProvider(
+      BlocProvider<PageControllerBloc>(
         create: (context) => PageControllerBloc(),
-        child: Container(),
+        
       )
     ], child: MyApp()));
   }, blocObserver: SimpleBlocObserver());

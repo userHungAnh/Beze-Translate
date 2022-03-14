@@ -8,8 +8,9 @@ import 'package:flutter_beze_demo/bloc/search_language/search_state.dart';
 import 'package:flutter_beze_demo/custom/type_text/layout_text.dart';
 import 'package:flutter_beze_demo/custom/type_text/regular_text.dart';
 
-import 'package:flutter_beze_demo/button/back_setting_button.dart';
-import 'package:flutter_beze_demo/widget/search.dart';
+import 'package:flutter_beze_demo/ui/widget/back_screen_button.dart';
+import 'package:flutter_beze_demo/ui/widget/search.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingLanguage extends StatefulWidget {

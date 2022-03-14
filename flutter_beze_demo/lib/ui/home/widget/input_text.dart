@@ -5,7 +5,7 @@ import 'package:flutter_beze_demo/bloc/speech_to_text.dart/speech_to_text_event.
 import 'package:flutter_beze_demo/bloc/translate_language/google_translate_bloc.dart';
 import 'package:flutter_beze_demo/bloc/translate_language/google_translate_event.dart';
 
-import 'package:flutter_beze_demo/button/text_to_speech_button.dart';
+import 'package:flutter_beze_demo/ui/home/widget/text_to_speech_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class InputText extends StatefulWidget {

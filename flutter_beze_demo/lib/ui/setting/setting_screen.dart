@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_beze_demo/custom/type_button/image_button.dart';
 import 'package:flutter_beze_demo/custom/type_text/layout_text.dart';
 import 'package:flutter_beze_demo/bloc/translate_language/google_translate_bloc.dart';
 import 'package:flutter_beze_demo/bloc/theme/theme_bloc.dart';
-import 'package:flutter_beze_demo/screen/main_page_view/sub_page/setting/setting_speech_to_text.dart';
-import 'package:flutter_beze_demo/screen/main_page_view/sub_page/setting/setting_text_to_speech.dart';
-import 'package:flutter_beze_demo/button/changed_theme_button.dart';
-import 'package:flutter_beze_demo/screen/main_page_view/sub_page/setting/setting_language.dart';
+import 'package:flutter_beze_demo/ui/setting/screen/setting_speech_to_text_screen.dart';
+import 'package:flutter_beze_demo/ui/setting/screen/setting_text_to_speech_screen.dart';
+import 'package:flutter_beze_demo/ui/setting/widget/changed_theme_button.dart';
+import 'package:flutter_beze_demo/ui/setting/screen/setting_language_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingPage extends StatelessWidget {
@@ -36,7 +37,10 @@ class SettingPage extends StatelessWidget {
                 child: Container(
                   height: 100,
                   width: widthScaffold,
-                  child: Text('Setting account'),
+                  child: Text(
+                    'Setting account',
+                    style: PrimaryFont.thin(20).copyWith(color: kColorThin),
+                  ),
                 ),
               ),
               Card(

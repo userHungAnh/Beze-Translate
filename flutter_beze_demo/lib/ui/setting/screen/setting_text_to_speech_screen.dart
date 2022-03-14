@@ -2,7 +2,7 @@ import 'package:flutter_beze_demo/bloc/text_to_speech/text_to_speech_bloc.dart';
 import 'package:flutter_beze_demo/bloc/text_to_speech/text_to_speech_event.dart';
 import 'package:flutter_beze_demo/bloc/theme/theme_bloc.dart';
 import 'package:flutter_beze_demo/custom/type_text/layout_text.dart';
-import 'package:flutter_beze_demo/button/back_setting_button.dart';
+import 'package:flutter_beze_demo/ui/widget/back_screen_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 

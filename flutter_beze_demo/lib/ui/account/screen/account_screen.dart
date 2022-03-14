@@ -18,15 +18,15 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: FutureBuilder<Api2>(
+      body: FutureBuilder<List<String>>(
           future: fetchApi2(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return Center(
                   child: ListView.builder(
-                itemCount: snapshot.data!.language.length,
+                itemCount: snapshot.data!.length,
                 itemBuilder: (context, index) {
-                  return Text('${snapshot.data!.language[index]}');
+                  return Text('${snapshot.data![index]}');
                 },
               ));
             } else if (snapshot.hasError) {

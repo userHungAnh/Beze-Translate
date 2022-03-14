@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_beze_demo/custom/type_text/regular_text.dart';
 import 'package:flutter_beze_demo/bloc/theme/theme_bloc.dart';
 
-import 'package:flutter_beze_demo/select_language/select_from_language.dart';
-import 'package:flutter_beze_demo/select_language/select_to_language.dart';
+import 'package:flutter_beze_demo/ui/home/widget/select_from_language.dart';
+import 'package:flutter_beze_demo/ui/home/widget/select_to_language.dart';
 
-import 'package:flutter_beze_demo/widget/input_text.dart';
-import 'package:flutter_beze_demo/widget/result_text.dart';
-import 'package:flutter_beze_demo/button/speech_to_text_button.dart';
-import 'package:flutter_beze_demo/button/swap_language_button.dart';
+import 'package:flutter_beze_demo/ui/home/widget/input_text.dart';
+import 'package:flutter_beze_demo/ui/home/widget/result_text.dart';
+import 'package:flutter_beze_demo/ui/home/widget/speech_to_text_button.dart';
+import 'package:flutter_beze_demo/ui/home/widget/swap_language_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../bloc/translate_language/google_translate_bloc.dart';
+import '../../../bloc/translate_language/google_translate_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({

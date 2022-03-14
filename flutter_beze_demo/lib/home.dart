@@ -13,14 +13,11 @@ import 'package:flutter_beze_demo/bloc/theme/theme_event.dart';
 import 'package:flutter_beze_demo/bloc/translate_language/google_translate_bloc.dart';
 import 'package:flutter_beze_demo/bloc/translate_language/google_translate_event.dart';
 import 'package:flutter_beze_demo/request_api/api2.dart';
-
-import 'package:flutter_beze_demo/screen/main_page_view/account_page.dart';
-import 'package:flutter_beze_demo/screen/main_page_view/home_page.dart';
-import 'package:flutter_beze_demo/screen/main_page_view/setting_page.dart';
-
-import 'package:flutter_beze_demo/widget/navigator_bottom.dart';
-
+import 'package:flutter_beze_demo/ui/account/screen/account_screen.dart';
+import 'package:flutter_beze_demo/ui/home/screen/home_screen.dart';
+import 'package:flutter_beze_demo/ui/setting/setting_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'ui/widget/navigator_bottom.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -36,7 +33,6 @@ class _HomeState extends State<Home> {
   );
   @override
   void initState() {
-    fetchApi2();
     context.read<ThemeBloc>().add(ThemeInitEvent());
     context.read<SpeechToTextBloc>().add(SpeechToTextInitEvent());
     context.read<TranslateBloc>().add((TranslateInitEvent()));
@@ -50,7 +46,6 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-
     return SafeArea(
       child: Scaffold(
           bottomNavigationBar: NavigatorBottom(
